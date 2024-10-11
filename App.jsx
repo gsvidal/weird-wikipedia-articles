@@ -1,13 +1,16 @@
-import React from "react"
-import getArticles from "./utilities/getArticles"
-import Button from "./components/Button"
-import Header from "./components/Header"
+import React from "react";
+import getArticles from "./utilities/getArticles";
+import Button from "./components/Button";
+import Header from "./components/Header";
 
 export default function App() {
-	const [numOfArticles, setNumOfArticles] = React.useState(4)
-	const [currentArticles, setCurrentArticles] = React.useState(getArticles(numOfArticles))
+  const [numOfArticles, setNumOfArticles] = React.useState(7);
+  const [currentArticles, setCurrentArticles] = React.useState(
+    getArticles(numOfArticles)
+  );
+  console.log(currentArticles);
 
-/* Challenge
+  /* Challenge
 
 	The list items below aren't following the principle of DRY (Don't Repeat Yourself). Your task is to fix that by doing the following: 
 	
@@ -20,49 +23,27 @@ export default function App() {
 		3. If numOfArticles (line 7) stays the same number (4), the app should look identical after 
 		   completing these tasks. However, if numOfArticles is changed to a higher or lower number,a corresponding number of list items should be rendered. Test this!  
 */
-	return (
-		<div className="wrapper">
-			<Header />
-			<main>
-				<ul>
-			
-{/*------------List items below!-------------------------------------------------------*/}	
-			
-					<li className="article">
-						<a href={currentArticles[0].link} target="_blank">
-							{currentArticles[0].title}
-						</a>
-					</li>
+  return (
+    <div className="wrapper">
+      <Header />
+      <main>
+        <ul>
+          {/*------------List items below!-------------------------------------------------------*/}
+          {currentArticles?.map((currentArticle) => (
+            <li className="article" key={currentArticle.id}>
+              <a href={currentArticle.link} target="_blank">
+                {currentArticle.title}
+              </a>
+            </li>
+          ))}
 
-					<li className="article">
-						<a href={currentArticles[1].link} target="_blank">
-							{currentArticles[1].title}
-						</a>
-					</li>
-
-					<li className="article">
-						<a href={currentArticles[2].link} target="_blank">
-							{currentArticles[2].title}
-						</a>
-					</li>
-
-					<li className="article">
-						<a href={currentArticles[3].link} target="_blank">
-							{currentArticles[3].title}
-						</a>
-					</li>				
-				
-				
-{/*------------List items above!-------------------------------------------------------*/}	
-			
-			
-			
-				</ul>
-				<Button
-					numOfArticles={numOfArticles}
-					setCurrentArticles={setCurrentArticles}
-				/>
-			</main>
-		</div>
-	)
+          {/*------------List items above!-------------------------------------------------------*/}
+        </ul>
+        <Button
+          numOfArticles={numOfArticles}
+          setCurrentArticles={setCurrentArticles}
+        />
+      </main>
+    </div>
+  );
 }
